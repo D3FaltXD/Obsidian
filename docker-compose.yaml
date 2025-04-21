@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  jenkins:
+    image: d3faltxd/jenkins:latest 
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - frontend_jenkins_home:/var/jenkins_home  # Use the existing volume name
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+
+  defaltxd:
+    image: d3faltxd/backend:latest  # Replace with the actual image name if different
+    container_name: backend
+    ports:
+      - "80:5000"
+   # Optional: Mount a volume for persistent data
+    environment:
+      - ENV_VAR_1=value1  # Replace with actual environment variables if needed
+      - ENV_VAR_2=value2
+
+volumes:
+  frontend_jenkins_home:
+    external: true  # Declare that this volume is managed externally
